@@ -9,7 +9,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ category.title }}</h5>
               <p class="card-text">{{ category.detail }}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="{% url 'category_questions' category.id %}" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
           {% endfor %}
