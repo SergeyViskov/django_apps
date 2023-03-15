@@ -58,10 +58,23 @@ def submit_answer(request, cat_id, quest_id):
         }
         if 'skip' in request.POST:
             if question:
+                quest = models.QuizQuestions.objects.get(id=quest_id)
+                user = request.user
+                answer = 'Not Submitted'
+                models.UserSubmittedAnswer.objects.create(
+                    user=user, question=quest, right_answer=answer)
                 return render(request, 'category-questions.html', context)
+        else:
+            quest = models.QuizQuestions.objects.get(id=quest_id)
+            user = request.user
+            answer = request.POST['answer']
+            models.UserSubmittedAnswer.objects.create(
+                    user=user, question=quest, right_answer=answer)
         if question:
             return render(request, 'category-questions.html', context)
         else:
-            return HttpResponse('No more questions!')
+            result = models.UserSubmittedAnswer.objects.filter(
+                user=request.user)
+            return render(request, 'result.html', {'result': result})
     else:
         return HttpResponse('Method not allowed!')
