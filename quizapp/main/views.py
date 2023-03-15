@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from . import forms
+from . import models
 
 
 def home(request):
@@ -15,4 +16,16 @@ def register(request):
         if form.is_valid():
             form.save()
             msg = 'Data has been added'
-    return render(request, 'registration/register.html', {'form': form, 'msg': msg})
+    context = {
+        'form': form,
+        'msg': msg
+    }
+    return render(request, 'registration/register.html', context)
+
+
+def all_categories(request):
+    cat_data = models.QuizCategory.objects.all()
+    context = {
+        'data': cat_data
+    }
+    return render(request, 'all-category.html', context)
