@@ -7,11 +7,11 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-        <th>#</th>
-        <th>Question</th>
-        <th>Right Answer</th>
-        <th>Submited Answer</th>
-    </tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Right Answer</th>
+            <th>Submited Answer</th>
+        </tr>
     </thead>
     <tbody>
         {% for row in result %}
@@ -49,5 +49,9 @@
         <td>{{ right_ans }}</td>
     </tr>
 </table>
+
+<tr>
+    <td>User points: {{ points.points }}</td>
+</tr>
 
 {% endblock %}

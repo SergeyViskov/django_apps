@@ -11,5 +11,6 @@ urlpatterns = [
     path('submit-answer/<int:cat_id>/<int:quest_id>', views.submit_answer, name='submit_answer'),
     path('attempt-limit/', views.attempt_limit, name='attempt-limit'),
     path('result/', views.result, name='result'),
-    path('all-users/', views.all_users, name="all-users")
+    path('all-users/', views.all_users, name='all-users'),
+    path('profile/', views.profile, name='profile'),
 ]

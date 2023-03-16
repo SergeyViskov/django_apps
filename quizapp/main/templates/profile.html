@@ -1,8 +1,9 @@
-{% extends "base.html" %}
-{% block title %}Users{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
 {% block content %}
-<h2 class="my-4">Users</h2>
 
+<h2 class="my-4">Пользователь: {{ user }}</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -11,12 +12,10 @@
         </tr>
     </thead>
     <tbody>
-        {% for user in users_list %}
         <tr>
-            <td>{{ user.user }}</td>
+            <td>{{ user }}</td>
             <td>{{ user.points }}</td>
         </tr>
-        {% endfor %}
     </tbody>
 </table>
 {% endblock %}

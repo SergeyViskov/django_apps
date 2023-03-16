@@ -53,3 +53,14 @@ class UserCategoryAttempts(models.Model):
     
     def __str__(self):
         return str(self.category)
+
+
+class UserPoints(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    points = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = 'User Point'
+    
+    def __str__(self):
+        return str(self.user)

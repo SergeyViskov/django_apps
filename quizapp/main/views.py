@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from . import forms
 from . import models
@@ -49,6 +50,7 @@ def category_questions(request, cat_id):
     if count_attempt == 0:
         models.UserCategoryAttempts.objects.create(
             user=request.user, category=category)
+        models.UserPoints.objects.create(user=request.user)
     else:
         last_attempt = models.UserCategoryAttempts.objects.filter(
             user=request.user, category=category).order_by('-id').first()
@@ -114,20 +116,33 @@ def result(request):
     for row in result:
         if row.question.right_opt == row.right_answer:
             right_ans += 1
+    current = models.UserPoints.objects.get(user=request.user)
+    current.points = right_ans
+    current.save()
     context_results = {
         'result': result,
         'total_skipped': skipped,
         'attemped': attempted,
-        'right_ans': right_ans
+        'right_ans': right_ans,
+        'points': current
     }
     return render(request, 'result.html', context_results)
 
 
 @login_required
 def all_users(request):
-    users_list = User.objects.all()
-
+    users_list = models.UserPoints.objects.all()
     context = {
-            "users_list": users_list,
+            'users_list': users_list,
         }
     return render(request, 'all-users.html', context)
+
+
+@login_required
+def profile(request):
+    user = models.UserPoints.objects.get(user=request.user)
+    print(user.points)
+    context = {
+        'user': user,
+    }
+    return render(request, 'profile.html', context)
