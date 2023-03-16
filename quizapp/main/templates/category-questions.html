@@ -5,7 +5,6 @@
 <h3 class="my-4">Category: {{ category.title }}</h3>
 
 <div class="card my-4">
-    <h4 class="card-header">{{question.question}} <span class="timer float-end">asas</span></h4>
     <form method="post" action="{% url 'submit_answer' category.id question.id %}">
         {% csrf_token %}
         <div class="card-body">

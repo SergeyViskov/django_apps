@@ -14,8 +14,8 @@
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                  {% if request.user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'all_categories' %}">All Categories</a>
                   </li>
@@ -23,13 +23,20 @@
                     <a class="nav-link" href="{% url 'result' %}">Result</a>
                   </li>
                   <li class="nav-item">
+                    <a class="btn btn-warning">Пользователь: {{ user.username }}</a>
+                  <li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                  <li>
+                  {% else %}
+                  <li class="nav-item">
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
                   </li>
+                  {% endif %}
                 </ul>
-              </div>
             </div>
           </nav>
           
