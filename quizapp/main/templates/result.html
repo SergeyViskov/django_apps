@@ -29,4 +29,25 @@
     </tbody>
 </table>
 
+<h2 class="my-4">Result Detail</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Total Questions</th>
+        <td>{{ result.count }}</td>
+    </tr>
+    <tr>
+        <th>Total Skipped Questions</th>
+        <td>{{ total_skipped }}</td>
+    </tr>
+    <tr>
+        <th>Total Attemted Questions</th>
+        <td>{{ attemped }}</td>
+    </tr>
+    <tr>
+        <th>Right Answers</th>
+        <td>{{ right_ans }}</td>
+    </tr>
+</table>
+
 {% endblock %}

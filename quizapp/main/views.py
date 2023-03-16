@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from datetime import timedelta
+
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
@@ -38,6 +40,23 @@ def category_questions(request, cat_id):
     category = models.QuizCategory.objects.get(id=cat_id)
     question = models.QuizQuestions.objects.filter(
         category=category).order_by('id').first()
+    last_attempt = None
+    future_time = None
+    hours_limit = 24
+    count_attempt = models.UserCategoryAttempts.objects.filter(
+        user=request.user, category=category).count()
+    if count_attempt == 0:
+        models.UserCategoryAttempts.objects.create(
+            user=request.user, category=category)
+    else:
+        last_attempt = models.UserCategoryAttempts.objects.filter(
+            user=request.user, category=category).order_by('-id').first()
+        future_time = last_attempt.attempt_time + timedelta(hours=hours_limit)
+        if last_attempt and last_attempt.attempt_time < future_time:
+            return redirect('attempt-limit')
+        else:
+            models.UserCategoryAttempts.objects.create(
+                user=request.user, category=category)
     context = {
         'question': question,
         'category': category
@@ -73,8 +92,31 @@ def submit_answer(request, cat_id, quest_id):
         if question:
             return render(request, 'category-questions.html', context)
         else:
-            result = models.UserSubmittedAnswer.objects.filter(
-                user=request.user)
-            return render(request, 'result.html', {'result': result})
+            return result(request)
     else:
         return HttpResponse('Method not allowed!')
+
+
+@login_required
+def attempt_limit(request):
+    return render(request, 'attempt-limit.html')
+
+
+@login_required
+def result(request):
+    result = models.UserSubmittedAnswer.objects.filter(user=request.user)
+    skipped = models.UserSubmittedAnswer.objects.filter(
+        user=request.user, right_answer='Not Submitted').count()
+    attempted = models.UserSubmittedAnswer.objects.filter(
+        user=request.user).exclude(right_answer='Not Submitted').count()
+    right_ans = 0
+    for row in result:
+        if row.question.right_opt == row.right_answer:
+            right_ans += 1
+    context_results = {
+        'result': result,
+        'total_skipped': skipped,
+        'attemped': attempted,
+        'right_ans': right_ans
+    }
+    return render(request, 'result.html', context_results)
