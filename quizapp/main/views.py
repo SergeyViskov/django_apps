@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 from . import forms
 from . import models
@@ -120,3 +121,13 @@ def result(request):
         'right_ans': right_ans
     }
     return render(request, 'result.html', context_results)
+
+
+@login_required
+def all_users(request):
+    users_list = User.objects.all()
+
+    context = {
+            "users_list": users_list,
+        }
+    return render(request, 'all-users.html', context)
