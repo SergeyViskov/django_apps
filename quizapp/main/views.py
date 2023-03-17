@@ -27,6 +27,7 @@ def register(request):
     return render(request, 'registration/register.html', context)
 
 
+@login_required
 def all_categories(request):
     cat_data = models.QuizCategory.objects.all()
     context = {
