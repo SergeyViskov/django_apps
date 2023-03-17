@@ -13,8 +13,13 @@
     <tbody>
         {% for user in users_list %}
         <tr>
-            <td>{{ user.user }}</td>
-            <td>{{ user.points }}</td>
+            {% if user.points < 2 %}
+                <td class="bg-danger text-white">{{ user.user }}</span></td>
+                <td class="bg-danger text-white">{{ user.points }}</span></td>
+            {% else %}
+                <td class="bg-success text-white">{{ user.user }}</span></td>
+                <td class="bg-success text-white">{{ user.points }}</span></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

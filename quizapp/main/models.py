@@ -21,7 +21,6 @@ class QuizQuestions(models.Model):
     opt_3 = models.CharField(max_length=200)
     opt_4 = models.CharField(max_length=200)
     level = models.CharField(max_length=100)
-    time_limit = models.IntegerField()
     right_opt = models.CharField(max_length=100)
 
     class Meta:
