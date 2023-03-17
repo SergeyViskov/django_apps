@@ -2,20 +2,14 @@
 {% load static %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-
 <h2 class="my-4">Пользователь: {{ user }}</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Points</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ user }}</td>
-            <td>{{ user.points }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+              <p class="card-text">User points: {{ user.points }}</p>
+            </div>
+          </div>
+    </div>
+</div>
 {% endblock %}

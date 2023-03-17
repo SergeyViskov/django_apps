@@ -1,27 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Users{% endblock %}
+{% block title %}Rating{% endblock %}
 {% block content %}
-<h2 class="my-4">Users</h2>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Points</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users_list %}
-        <tr>
-            {% if user.points < 2 %}
-                <td class="bg-danger text-white">{{ user.user }}</span></td>
-                <td class="bg-danger text-white">{{ user.points }}</span></td>
-            {% else %}
-                <td class="bg-success text-white">{{ user.user }}</span></td>
-                <td class="bg-success text-white">{{ user.points }}</span></td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h2 class="my-4">Rating</h2>
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users_list %}
+                    <tr>
+                        {% if user.points < 2 %}
+                            <td class="bg-danger text-white">{{ user.user }}</span></td>
+                            <td class="bg-danger text-white">{{ user.points }}</span></td>
+                        {% else %}
+                            <td class="bg-success text-white">{{ user.user }}</span></td>
+                            <td class="bg-success text-white">{{ user.points }}</span></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

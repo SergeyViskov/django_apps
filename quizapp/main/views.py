@@ -22,7 +22,7 @@ def register(request):
             msg = 'Data has been added'
     context = {
         'form': form,
-        'msg': msg
+        'msg': msg,
     }
     return render(request, 'registration/register.html', context)
 
@@ -31,7 +31,7 @@ def register(request):
 def all_categories(request):
     cat_data = models.QuizCategory.objects.all()
     context = {
-        'data': cat_data
+        'data': cat_data,
     }
     return render(request, 'all-category.html', context)
 
@@ -60,7 +60,7 @@ def category_questions(request, cat_id):
                 user=request.user, category=category)
     context = {
         'question': question,
-        'category': category
+        'category': category,
     }
     return render(request, 'category-questions.html', context)
 
@@ -74,7 +74,7 @@ def submit_answer(request, cat_id, quest_id):
                 id=quest_id).order_by('id').first()
         context = {
             'question': question,
-            'category': category
+            'category': category,
         }
         if 'skip' in request.POST:
             if question:
@@ -114,12 +114,6 @@ def result(request):
     for row in result:
         if row.question.right_opt == row.right_answer:
             right_ans += 1
-    # current = models.UserPoints(user=request.user)
-    # # current.points = right_ans
-    # if current.user != request.user:
-    #     current.points += right_ans
-    #     current.save()
-    # print(current.points)
     try:
         add_score = models.UserPoints.objects.get(user=request.user)
         add_score.points = right_ans
@@ -141,8 +135,8 @@ def result(request):
 def all_users(request):
     users_list = models.UserPoints.objects.all()
     context = {
-            'users_list': users_list,
-        }
+        'users_list': users_list,
+    }
     return render(request, 'all-users.html', context)
 
 
