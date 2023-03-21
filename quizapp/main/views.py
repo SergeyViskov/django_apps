@@ -3,6 +3,8 @@ from datetime import timedelta
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.views import generic
+from django.utils.decorators import method_decorator
 
 from . import forms
 from . import models
@@ -27,13 +29,10 @@ def register(request):
     return render(request, 'registration/register.html', context)
 
 
-@login_required
-def all_categories(request):
-    cat_data = models.QuizCategory.objects.all()
-    context = {
-        'data': cat_data,
-    }
-    return render(request, 'all-category.html', context)
+@method_decorator(login_required, name='dispatch')
+class AllCategoriesListView(generic.ListView):
+    model = models.QuizCategory
+    template_name = 'all-category.html'
 
 
 @login_required

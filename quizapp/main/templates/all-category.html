@@ -4,12 +4,12 @@
 <h3 class="my-4">All Categories</h3>
 <div class="row">
     <div class="col-md-4">
-        {% for category in data %}
+        {% for object in object_list %}
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ category.title }}</h5>
-              <p class="card-text">{{ category.detail }}</p>
-              <a href="{% url 'category_questions' category.id %}" class="btn btn-primary">Начать тестирование</a>
+              <h5 class="card-title">{{ object.title }}</h5>
+              <p class="card-text">{{ object.detail }}</p>
+              <a href="{% url 'category_questions' object.id %}" class="btn btn-primary">Начать тестирование</a>
             </div>
           </div>
           {% endfor %}
