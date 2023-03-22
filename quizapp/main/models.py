@@ -59,7 +59,7 @@ class UserPoints(models.Model):
     points = models.IntegerField(default=0)
 
     class Meta:
-        verbose_name_plural = 'User Point'
+        verbose_name_plural = 'User Points'
     
     def __str__(self):
         return str(self.user)

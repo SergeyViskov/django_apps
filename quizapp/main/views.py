@@ -130,19 +130,18 @@ def result(request):
     return render(request, 'result.html', context_results)
 
 
-@login_required
-def all_users(request):
-    users_list = models.UserPoints.objects.all()
-    context = {
-        'users_list': users_list,
-    }
-    return render(request, 'all-users.html', context)
+@method_decorator(login_required, name='dispatch')
+class AllUsersListView(generic.ListView):
+    model = models.UserPoints
+    template_name = 'all-users.html'
 
 
-@login_required
-def profile(request):
-    user = models.UserPoints.objects.get(user=request.user)
-    context = {
-        'user': user,
-    }
-    return render(request, 'profile.html', context)
+@method_decorator(login_required, name='dispatch')
+class ProfileDetail(generic.View):
+
+    def get(self, request):
+        user = models.UserPoints.objects.get(user=request.user)
+        context = {
+            'user': user,
+        }
+        return render(request, 'profile.html', context)

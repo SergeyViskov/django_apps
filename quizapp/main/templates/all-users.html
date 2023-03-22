@@ -13,14 +13,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for user in users_list %}
+                    {% for object in object_list %}
                     <tr>
-                        {% if user.points < 2 %}
-                            <td class="bg-danger text-white">{{ user.user }}</span></td>
-                            <td class="bg-danger text-white">{{ user.points }}</span></td>
+                        {% if object.points < 2 %}
+                            <td class="bg-danger text-white">{{ object.user }}</span></td>
+                            <td class="bg-danger text-white">{{ object.points }}</span></td>
                         {% else %}
-                            <td class="bg-success text-white">{{ user.user }}</span></td>
-                            <td class="bg-success text-white">{{ user.points }}</span></td>
+                            <td class="bg-success text-white">{{ object.user }}</span></td>
+                            <td class="bg-success text-white">{{ object.points }}</span></td>
                         {% endif %}
                     </tr>
                     {% endfor %}
