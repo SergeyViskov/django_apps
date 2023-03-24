@@ -10,8 +10,8 @@ from . import forms
 from . import models
 
 
-def home(request):
-    return render(request, 'home.html')
+class HomeView(generic.TemplateView):
+    template_name = 'home.html'
 
 
 def register(request):
@@ -97,9 +97,9 @@ def submit_answer(request, cat_id, quest_id):
         return HttpResponse('Method not allowed!')
 
 
-@login_required
-def attempt_limit(request):
-    return render(request, 'attempt-limit.html')
+@method_decorator(login_required, name='dispatch')
+class AttemptLimitView(generic.TemplateView):
+    template_name = 'attempt-limit.html'
 
 
 @login_required
